@@ -4,6 +4,7 @@ module.exports = {
         ecmaVersion: 6,
         sourceType: 'module'
     },
+	"extends": "vue",
     "env": {
         browser: true,
         amd: true,
@@ -22,13 +23,12 @@ module.exports = {
         "no-extra-semi": 1,
         "no-underscore-dangle": 0,
         "no-console": 1,
+		"no-alert": 1,
         "no-unused-vars": 1,
-        "no-trailing-spaces": [
-            1, {
-                "skipBlankLines": true
-            }
-        ],
         "no-unreachable": 1,
-        "no-alert": 1
+        "no-alert": 1,
+		"indent": ["warn", 4],
+		"space-before-function-paren": 0,
+		"quotes": 0
     }
 }

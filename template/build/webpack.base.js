@@ -28,17 +28,17 @@ module.exports = {
     plugins: [],
     module: {
         preLoaders: [
-            /*{
+            {
                 test: /\.vue$/,
                 loader: 'eslint',
                 include: [src_path],
                 exclude: /node_modules/
-            },*/ /*{
+            },{
                 test: /\.js$/,
                 loader: 'eslint',
                 include: [src_path],
                 exclude: /node_modules/
-            }*/
+            }
         ],
         loaders: [
             {

@@ -15,21 +15,21 @@
 </template>
 
 <script>
-    export default{
-        data(){
-            return {
-                form: {
-                    name: '',
-                    password: ''
-                }
-            }
-        },
-        methods: {
-            onSubmit(){
-                this.$router.push('/')
+export default {
+    data() {
+        return {
+            form: {
+                name: '',
+                password: ''
             }
         }
+    },
+    methods: {
+        onSubmit() {
+            this.$router.push('/')
+        }
     }
+}
 </script>
 
 <style>
