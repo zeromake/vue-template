@@ -15,7 +15,7 @@ baseConfig.entry= {
 baseConfig.plugins.push(
   new webpack.DllPlugin({
     path: 'manifest.json',
-    name: '[name]_[chunkhash]',
+    name: '[name]_[hash]',
     context: path.resolve(__dirname, '../'),
   })
 )
