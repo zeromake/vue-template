@@ -1,0 +1,46 @@
+{
+  "name": "{{ name }}",
+  "version": "1.0.0",
+  "description": "{{ description }}",
+  "main": "index.js",
+  "scripts": {
+    "dll_user": "cross-env NODE_ENV=production webpack --progress --colors --config build/webpack.dll.user.js",
+    "dll": "cross-env NODE_ENV=production webpack --progress --colors --config build/webpack.dll.js",
+    "dev2": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --content-base web_app/static/ --config build/webpack.dll.user.js",
+    "dev": "cross-env NODE_ENV=development node build/dev_server.js",
+    "dev_dll_user": "cross-env NODE_ENV=development webpack --progress --colors --config build/webpack.dll.user.js",
+    "dev_dll": "cross-env NODE_ENV=development webpack --progress --colors --config build/webpack.dll.js"
+  },
+  "author": "{{ author }}",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^6.6.1",
+    "babel-core": "^6.21.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.3.0",
+    "babel-preset-es2015": "^6.18.0",
+    "cross-env": "^3.1.4",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.2",
+    "eslint-loader": "^1.6.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.26.0",
+    "postcss": "^5.2.8",
+    "postcss-loader": "^1.2.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "vue-hot-reload-api": "^2.0.7",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.8",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "element-ui": "^1.1.2",
+    "vue": "^2.1.8",
+    "vue-router": "^2.1.1"
+  }
+}

@@ -1,0 +1,5 @@
+node_modules/
+web_app/static/
+npm-debug.log
+manifest.json
+*.pyc
