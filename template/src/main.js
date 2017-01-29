@@ -14,7 +14,7 @@ ElementUi.install(Vue)
 Vue.prototype.$http = Axios
 
 const router = new VueRouter({
-    mode: 'hash',    // 路由的模式
+    mode: 'history',    // 路由的模式
     routes: routerConfig
 })
 new Vue({

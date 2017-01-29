@@ -1,7 +1,7 @@
 {
-  "name": "{{ name }}",
+  "name": "name",
   "version": "1.0.0",
-  "description": "{{ description }}",
+  "description": "description",
   "main": "index.js",
   "scripts": {
     "dll_user": "cross-env NODE_ENV=production webpack --progress --colors --config build/webpack.dll.user.js",
@@ -27,22 +27,22 @@
     "eslint-config-vue": "^2.0.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-vue": "^1.0.0",
-    "file-loader": "^0.9.0",
+    "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.26.0",
     "postcss": "^5.2.8",
     "postcss-loader": "^1.2.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "vue-hot-reload-api": "^2.0.7",
-    "vue-loader": "^10.0.2",
-    "vue-template-compiler": "^2.1.8",
+    "vue-hot-reload-api": "^2.0.8",
+    "vue-loader": "^10.1.2",
+    "vue-template-compiler": "^2.1.10",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "axios": "^0.15.3",
-    "element-ui": "^1.1.2",
-    "vue": "^2.1.8",
-    "vue-router": "^2.1.1"
+    "element-ui": "^1.1.6",
+    "vue": "^2.1.10",
+    "vue-router": "^2.2.0"
   }
 }

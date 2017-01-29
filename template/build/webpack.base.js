@@ -1,18 +1,31 @@
 const path = require('path')
 const webpack = require('webpack')
-const out_path = path.resolve(__dirname, '../web_app/static')
-const src_path = path.resolve(__dirname, '../vue_src')
-const assetsSubDirectory = 'assets'
+const userConfig = require('./config')
+const out_path = userConfig.out_path
+const src_path = userConfig.src_path
+const publicPathJoinName = userConfig.public_path_join_name
+const publicPathName = userConfig.public_path_name
+const jsOutJoinPathName = userConfig.js_out_join_path_name
+const assetsSubDirectory = path.posix.join(publicPathJoinName, userConfig.assets_dir)
 
 module.exports = {
     output: {
-      path: out_path,
-      filename: 'js/[name]_[hash].js',
-      library: '[name]_[hash]',
-      chunkFilename: "js/chunk/[name]_[hash].js" //-[chunkhash:4]
+        // 设置输出文件夹来自配置
+        path: out_path,
+        // 设置所有输出文件的挂载url
+        publicPath: publicPathName,
+        // 设置输出文件路径及名字组成
+        filename: path.posix.join(publicPathJoinName, jsOutJoinPathName, '[name]_[hash].js'),
+        library: '[name]_[hash]',
+        // 设置分割文件名及路径组成
+        chunkFilename: path.posix.join(publicPathJoinName, jsOutJoinPathName, "chunk/[name]_[chunkhash:4].js") //-[chunkhash:4]
     },
+    // 设置开启sourcemap
+    devtool: '#source-map',
     resolve: {
         alias: {
+            // 设置别名
+            components: path.resolve(src_path, 'components'),
             'vue$': 'vue/dist/vue.js'
         },
         fallback: [path.join(__dirname, '../node_modules')],
@@ -25,21 +38,25 @@ module.exports = {
     resolveLoader: {
         fallback: [path.join(__dirname, '../node_modules')]
     },
+    // 初始化插件为空数组
     plugins: [],
+    // 加载器的设置
     module: {
+        // 预加载器设置
         preLoaders: [
             {
                 test: /\.vue$/,
                 loader: 'eslint',
                 include: [src_path],
                 exclude: /node_modules/
-            },{
+            }, {
                 test: /\.js$/,
                 loader: 'eslint',
                 include: [src_path],
                 exclude: /node_modules/
             }
         ],
+        // 正式加载器设置
         loaders: [
             {
                 test: /\.vue$/,
@@ -75,16 +92,12 @@ module.exports = {
             }
         ]
     },
-    vue: {
-        loaders: {
-          css: 'style!css!postcss',
-          scss: 'style!css!postcss!sass'
-        },
-        postcss: [require('autoprefixer')({browsers: ['last 2 versions']})]
-    }
+    // postcss的配置
+    postcss: [require('autoprefixer')({browsers: ['last 2 versions']})]
 }
+// 设置开发和部署时的配置却别
 if (process.env.NODE_ENV === 'production') {
-    module.exports.devtool = '#source-map'
+    module.exports.devtool = null
     // http://vue-loader.vuejs.org/en/workflow/production.html
     module.exports.plugins = (module.exports.plugins || []).concat([
         new webpack.DefinePlugin({

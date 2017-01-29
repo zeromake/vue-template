@@ -1,5 +1,5 @@
 node_modules/
-web_app/static/
+dist/
 npm-debug.log
 manifest.json
 *.pyc
