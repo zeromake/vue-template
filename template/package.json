@@ -1,7 +1,7 @@
 {
-  "name": "name",
-  "version": "1.0.0",
-  "description": "description",
+  "name": "{{ name }}",
+  "version": "{{ version }}",
+  "description": "{{ description }}",
   "main": "index.js",
   "scripts": {
     "dll_user": "cross-env NODE_ENV=production webpack --progress --colors --config build/webpack.dll.user.js",
