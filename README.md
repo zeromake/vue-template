@@ -1,4 +1,4 @@
-# vue-flask-and-dll
+# vue-template
 
 ## dev run
 1. npm i
