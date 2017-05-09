@@ -22,7 +22,7 @@ baseConfig.entry = {
 baseConfig.plugins.push(
     new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: 'index.html',
+        template: 'index.template.html',
         vendorName: vendorName,
         inject: true
     })

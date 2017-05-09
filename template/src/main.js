@@ -6,12 +6,17 @@ import Axios from 'axios'
 import VueRouter from 'vue-router'
 import ElementUi from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import routerConfig from './config/router_config'
-// import App from './view/app'
+import routerConfig from './router'
 
 Vue.use(VueRouter)
 ElementUi.install(Vue)
-Vue.prototype.$http = Axios
+
+// 挂载$http
+if (Object.defineProperty) {
+    Object.defineProperty(Vue.prototype, '$http', { value: Axios })
+} else {
+    Vue.prototype.$http = Axios
+}
 
 const router = new VueRouter({
     mode: 'history',    // 路由的模式

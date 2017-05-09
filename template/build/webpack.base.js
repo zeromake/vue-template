@@ -37,8 +37,10 @@ module.exports = {
     resolve: {
         alias: {
             // 设置别名
-            components: path.resolve(srcPath, 'components'),
-            'vue$': 'vue/dist/vue.js'
+            {{#if_eq build "standalone"}}
+                'vue$': 'vue/dist/vue.esm.js',
+            {{/if_eq}}
+            '@': path.resolve(srcPath, './')
         },
         // require时省略的扩展名，如：require('module') 不需要module.js
         extensions: ['.js', '.vue']
@@ -49,6 +51,7 @@ module.exports = {
     module: {
         // 加载器设置
         rules: [
+            {{#lint}}
             {
                 test: /\.(js|vue)/,
                 use: 'eslint-loader',
@@ -56,6 +59,7 @@ module.exports = {
                 include: [srcPath],
                 exclude: /node_modules/
             },
+            {{/lint}}
             {
                 test: /\.vue/,
                 use: 'vue-loader'
