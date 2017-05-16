@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const userConfig = require('./config')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
 const outPath = userConfig.outPath
 const srcPath = userConfig.srcPath
 const publicPathJoinName = userConfig.publicPathJoinName
@@ -12,15 +14,19 @@ const postcssLoader = {
     loader: 'postcss-loader',
     options: {
         plugins: function() {
-            return [require('autoprefixer')({
-                browsers: ['last 2 versions', 'ie 9']
-            })
+            return [
+                require('autoprefixer')({
+                    browsers: ['last 2 versions', 'ie 9']
+                })
             ]
         }
     }
 }
 
 module.exports = {
+    entry: {
+        dist: [path.resolve(__dirname, '../src/main.js')],
+    },
     output: {
         // 设置输出文件夹来自配置
         path: outPath,
@@ -28,7 +34,6 @@ module.exports = {
         publicPath: publicPathName,
         // 设置输出文件路径及名字组成
         filename: path.posix.join(publicPathJoinName, jsOutJoinPathName, '[name]_[hash].js'),
-        library: '[name]_[hash]',
         // 设置分割文件名及路径组成
         chunkFilename: path.posix.join(publicPathJoinName, jsOutJoinPathName, "chunk/[name]_[chunkhash:4].js") // -[chunkhash:4]
     },
@@ -46,7 +51,24 @@ module.exports = {
         extensions: ['.js', '.vue']
     },
     // 初始化插件为空数组
-    plugins: [],
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.template.html',
+            inject: true
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: function (module) {
+                return (
+                    /node_modules/.test(module.context)
+                )
+            }
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest'
+        }),
+    ],
     // 加载器的设置
     module: {
         // 加载器设置
@@ -115,4 +137,10 @@ if (process.env.NODE_ENV === 'production') {
             }
         })
     ])
+}
+if (process.env.ANALY === 'dev') {
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+    module.exports.plugins.push(
+        new BundleAnalyzerPlugin()
+    )
 }

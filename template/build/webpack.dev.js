@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const baseConfig = require('./webpack.dll.user')
+const baseConfig = require('./webpack.config')
 const userConfig = require('./config')
 baseConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
 

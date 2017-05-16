@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const webpackDevServer = require('webpack-dev-server')
-const config = require('./webpack.dll.user')
+const config = require('./webpack.config')
 const userConfig = require('./config')
 const listeningHost = "http://" + userConfig.host + ":" + userConfig.port
 config.entry.dist.unshift("webpack-dev-server/client?" + listeningHost + "/", "webpack/hot/dev-server")

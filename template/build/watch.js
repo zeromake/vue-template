@@ -1,5 +1,5 @@
 const proxyMiddleware = require('http-proxy-middleware')
-const webpackConfig = require('./webpack.dll.user')
+const webpackConfig = require('./webpack.config')
 const express = require('express')
 const webpack = require('webpack')
 const path = require('path')
