@@ -19,7 +19,7 @@ if (Object.defineProperty) {
 }
 
 const router = new VueRouter({
-    mode: 'history',    // 路由的模式
+    mode: 'history', // 路由的模式
     routes: routerConfig
 })
 new Vue({
