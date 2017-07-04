@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const userConfig = require('./config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const outPath = userConfig.outPath
 const srcPath = userConfig.srcPath
@@ -9,6 +10,7 @@ const publicPathJoinName = userConfig.publicPathJoinName
 const publicPathName = userConfig.publicPathName
 const jsOutJoinPathName = userConfig.jsOutJoinPathName
 const assetsSubDirectory = path.posix.join(publicPathJoinName, userConfig.assetsDir)
+const isProduction = process.env.NODE_ENV === 'production'
 
 const postcssLoader = {
     loader: 'postcss-loader',
@@ -22,6 +24,15 @@ const postcssLoader = {
         }
     }
 }
+const vueOptions = isProduction ? {
+    extractCSS: true,
+    loaders: {
+        css: ExtractTextPlugin.extract({
+           use: 'css-loader',
+           fallback: 'vue-style-loader'
+        })
+    }
+}: undefined
 
 module.exports = {
     entry: {
@@ -61,7 +72,11 @@ module.exports = {
             name: 'vendor',
             minChunks: function (module) {
                 return (
-                    /node_modules/.test(module.context)
+                    module.resource &&
+                    /\.js$/.test(module.resource) &&
+                    module.resource.indexOf(
+                        path.join(__dirname, '../node_modules')
+                    ) === 0
                 )
             }
         }),
@@ -84,7 +99,10 @@ module.exports = {
             {{/lint}}
             {
                 test: /\.vue/,
-                use: 'vue-loader'
+                use: [{
+                    loader: 'vue-loader',
+                    options: vueOptions
+                }]
             }, {
                 test: /\.js/,
                 use: 'babel-loader',
@@ -92,10 +110,16 @@ module.exports = {
                 exclude: /node_modules/
             }, {
                 test: /\.css/,
-                use: ['style-loader', 'css-loader', postcssLoader]
+                use: isProduction ? ExtractTextPlugin.extract({
+                      fallback: "style-loader",
+                      use: ["css-loader", postcssLoader]
+                }): ['style-loader', 'css-loader', postcssLoader]
             }, {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', postcssLoader, 'sass-loader']
+                use: isProduction ? ExtractTextPlugin.extract({
+                      fallback: "style-loader",
+                      use: ["css-loader", postcssLoader, 'sass-loader']
+                }) : ['style-loader', 'css-loader', postcssLoader, 'sass-loader']
             }, {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 use: {
@@ -135,7 +159,8 @@ if (process.env.NODE_ENV === 'production') {
             compress: {
                 warnings: false
             }
-        })
+        }),
+        new ExtractTextPlugin(path.posix.join(assetsSubDirectory, "css/common.[chunkhash].css"))
     ])
 }
 if (process.env.ANALY === 'dev') {

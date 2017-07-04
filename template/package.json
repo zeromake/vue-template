@@ -2,7 +2,7 @@
   "name": "{{ name }}",
   "version": "{{ version }}",
   "description": "{{ description }}",
-  "main": "index.js",
+  "main": "src/main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --colors --config build/webpack.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --config build/webpack.dev.js",
@@ -30,6 +30,7 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-vue": "^2.1.0",
     {{/lint}}
+    "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
     "format-webpack-stats-errors-warnings": "^2.1.0",
     "html-webpack-plugin": "^2.29.0",
